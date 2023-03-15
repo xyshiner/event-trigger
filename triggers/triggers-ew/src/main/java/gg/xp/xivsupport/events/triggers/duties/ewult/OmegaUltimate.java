@@ -179,7 +179,7 @@ public class OmegaUltimate extends AutoChildEventHandler implements FilteredEven
 					""");
 	private final ModifiableCallout<HeadMarkerEvent> furthestFromEyeSwap = new ModifiableCallout<HeadMarkerEvent>("Glitch Stack Swap", "{swapper} and {swapee} Swap", 7_000)
 			.disabledByDefault()
-			.extendedDescription("This call will call out the players who need to swap using the 'furthest stack marker from eye' strategy.");
+			.extendedDescription("This call will call out the players who need to swap using the 'furthest stack marker from eye' strategy. Available variables: swapper, swapee, mid, psGroupName");
 	private final ModifiableCallout<HeadMarkerEvent> furthestFromEyeNoSwap = new ModifiableCallout<HeadMarkerEvent>("Glitch Stack No Swap", "No Swap", 7_000)
 			.disabledByDefault()
 			.extendedDescription("See above.");
@@ -847,10 +847,12 @@ public class OmegaUltimate extends AutoChildEventHandler implements FilteredEven
 					normalized.entrySet().stream().max(Comparator.comparing(e -> e.getValue().distanceFrom2D(eyePos)))
 							.ifPresent(furthest -> {
 								XivPlayerCharacter swapper = furthest.getKey();
-								XivPlayerCharacter swapee = e1.getPlayerForAssignment(e1.forPlayer(swapper).getCounterpart());
+								PsMarkerGroup psMarkerGroup = e1.forPlayer(swapper);
+								XivPlayerCharacter swapee = e1.getPlayerForAssignment(psMarkerGroup.getCounterpart());
 								s.setParam("swapper", swapper);
 								s.setParam("swapee", swapee);
 								s.setParam("mid", mid);
+								s.setParam("psGroupName", psMarkerGroup.getFriendlyName());
 								s.updateCall(furthestFromEyeSwap, stackMarkers.get(0));
 							});
 				}

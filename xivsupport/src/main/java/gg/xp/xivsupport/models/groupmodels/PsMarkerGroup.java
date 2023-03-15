@@ -4,14 +4,14 @@ import gg.xp.xivsupport.gui.util.HasFriendlyName;
 
 public enum PsMarkerGroup implements HasFriendlyName {
 
-	GROUP1_CIRCLE("Group 1 Circle", 1, 1),
-	GROUP1_TRIANGLE("Group 1 Triangle", 1, 2),
-	GROUP1_SQUARE("Group 1 Square", 1, 3),
-	GROUP1_X("Group 1 X", 1, 4),
-	GROUP2_CIRCLE("Group 2 Circle", 2, 1),
-	GROUP2_TRIANGLE("Group 2 Triangle", 2, 2),
-	GROUP2_SQUARE("Group 2 Square", 2, 3),
-	GROUP2_X("Group 2 X", 2, 4),
+	GROUP1_CIRCLE("Circle", 1, 1),
+	GROUP1_TRIANGLE("Triangle", 1, 3),
+	GROUP1_SQUARE("Square", 1, 4),
+	GROUP1_X("X", 1, 2),
+	GROUP2_CIRCLE("Circle", 2, 1),
+	GROUP2_TRIANGLE("Triangle", 2, 3),
+	GROUP2_SQUARE("Square", 2, 4),
+	GROUP2_X("X", 2, 2),
 	;
 
 	private final String friendlyName;
