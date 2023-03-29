@@ -4,6 +4,8 @@
 /.idea/uiDesigner.xml
 /.idea/vcs.xml
 /.idea/workspace.xml
+/.idea/encodings.xml
+/.idea/modules.xml
 **/target/
 /target/
 /act-stub-plugin-assembly/bin/*.nlp
@@ -16,3 +18,5 @@
 /act-stub-plugin-assembly/bin/mscorlib.dll
 /act-stub-plugin-assembly/bin/OverlayPlugin.Common.dll
 /.idea/libraries/
+*.iml
+update.properties
