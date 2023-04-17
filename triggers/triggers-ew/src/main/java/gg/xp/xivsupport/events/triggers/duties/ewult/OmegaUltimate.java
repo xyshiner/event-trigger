@@ -220,6 +220,7 @@ public class OmegaUltimate extends AutoChildEventHandler implements FilteredEven
 	private final JobSortOverrideSetting sniperPrio;
 	private final JobSortOverrideSetting monitorPrio;
 	private final JobSortOverrideSetting sigmaPsPrio;
+	private final JobSortOverrideSetting omegaPsPrio;
 	private final MultiSlotAutomarkSetting<TwoGroupsOfFour> markSettings;
 	private final MultiSlotAutomarkSetting<PsMarkerGroup> psMarkSettings;
 	private final MultiSlotAutomarkSetting<PsMarkerGroup> psMarkSettingsFar;
@@ -342,6 +343,7 @@ public class OmegaUltimate extends AutoChildEventHandler implements FilteredEven
 		monitorPrio = new JobSortOverrideSetting(pers, settingKeyBase + "monitor-prio-override", state, groupPrioJobSort);
 		sigmaPsPrio = new JobSortOverrideSetting(pers, settingKeyBase + "sigma-ps-prio-override", state, groupPrioJobSort);
 		sigmaAmDelay = new IntSetting(pers, settingKeyBase + "sigma-am-delay-seconds", 0, 0, 50);
+		omegaPsPrio = new JobSortOverrideSetting(pers, settingKeyBase + "omega-ps-prio-override", state, groupPrioJobSort);
 		omegaFirstSetDelay = new IntSetting(pers, settingKeyBase + "omega-am-1-delay-seconds", 1, 0, 28);
 		omegaSecondSetDelay = new IntSetting(pers, settingKeyBase + "omega-am-2-delay-seconds", 0, 0, 20);
 	}
@@ -1839,7 +1841,8 @@ public class OmegaUltimate extends AutoChildEventHandler implements FilteredEven
 					}
 				}
 				{
-					List<XivPlayerCharacter> partyList = getState().getPartyList();
+					List<XivPlayerCharacter> partyList = new ArrayList<>(getState().getPartyList());
+					partyList.sort(getOmegaPsPrio().getComparator());
 					List<XivPlayerCharacter> playersToMark = partyList.stream()
 							.sorted(Comparator.comparing(member -> getBuffs().buffStacksOnTarget(member, 3444)))
 							.filter(member -> {
@@ -1918,7 +1921,8 @@ public class OmegaUltimate extends AutoChildEventHandler implements FilteredEven
 						// Mark long near
 						// Mark long dist
 						// Find players to mark for tethers
-						List<XivPlayerCharacter> partyList = getState().getPartyList();
+						List<XivPlayerCharacter> partyList = new ArrayList<>(getState().getPartyList());
+						partyList.sort(getOmegaPsPrio().getComparator());
 						List<XivPlayerCharacter> twoStackPlayers = partyList.stream()
 								.filter(member -> getBuffs().buffStacksOnTarget(member, 0xD74) == 2
 								                  && !getBuffs().isStatusOnTarget(member, 0xBBC)
@@ -2229,6 +2233,10 @@ public class OmegaUltimate extends AutoChildEventHandler implements FilteredEven
 
 	public JobSortOverrideSetting getSigmaPsPrio() {
 		return sigmaPsPrio;
+	}
+
+	public JobSortOverrideSetting getOmegaPsPrio() {
+		return omegaPsPrio;
 	}
 
 	public MultiSlotAutomarkSetting<DynamisSigmaAssignment> getSigmaAmSettings() {

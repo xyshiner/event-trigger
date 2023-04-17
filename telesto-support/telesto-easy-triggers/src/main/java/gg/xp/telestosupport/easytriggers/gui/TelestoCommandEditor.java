@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 
 public class TelestoCommandEditor extends TitleBorderPanel {
 	public TelestoCommandEditor(TelestoCommandAction action, PicoContainer pico) {
-		super("Telesto Text Doodle");
+		super("Telesto Game Command");
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		try {
 			add(new GenericFieldEditor(action, pico, new Field[]{
